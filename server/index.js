@@ -16,7 +16,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://travio-a9wy.onrender.com"],
+    origin: process.env.REACT_APP_WEB_URI,
     exposedHeaders: ["x-auth-token"],
   })
 );
