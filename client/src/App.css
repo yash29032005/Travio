@@ -1,0 +1,21 @@
+:root {
+  --primary-color: white;
+  --secondary-color: rgb(241, 238, 238);
+}
+
+#section2 {
+  height: "100vh";
+}
+
+#section3 {
+  height: "100vh";
+}
+
+@media (max-width: 576px) {
+  #section2 {
+    height: auto;
+  }
+  #section3 {
+    height: auto;
+  }
+}
