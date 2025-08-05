@@ -23,7 +23,7 @@ function HotelThirdpage() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/hotels/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/hotels/${id}`)
       .then((response) => setHotel(response.data));
 
     try {

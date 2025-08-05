@@ -21,7 +21,7 @@ function Modalforflight({ show, onHide, handleSubmit }) {
     e.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/flights`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/flights`, {
         departureTime,
         arivalTime,
         departureAirport,

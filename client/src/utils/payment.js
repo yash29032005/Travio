@@ -29,7 +29,7 @@ const handlePayment = async (
   }
 
   const orderRes = await axios.post(
-    `${process.env.REACT_APP_API_URL}/payment/create-order`,
+    `${process.env.REACT_APP_API_URL}/api/payment/create-order`,
     {
       amount: price * 100,
     }
@@ -46,7 +46,7 @@ const handlePayment = async (
     order_id,
     handler: async function (response) {
       const verifyRes = await axios.post(
-        `${process.env.REACT_APP_API_URL}/payment/verify`,
+        `${process.env.REACT_APP_API_URL}/api/payment/verify`,
         {
           razorpay_order_id: response.razorpay_order_id,
           razorpay_payment_id: response.razorpay_payment_id,

@@ -1,9 +1,7 @@
-const express = require("express");
-const Router = express.Router();
-const { Packages, validatePackage } = require("../models/package");
+const { Packages, validatePackage } = require("../model/package.model");
 const PDFDocument = require("pdfkit");
 
-Router.get("/", async (req, res) => {
+exports.getPackages = async (req, res) => {
   const { destination } = req.query;
 
   const package = await Packages.find({
@@ -12,15 +10,15 @@ Router.get("/", async (req, res) => {
     }),
   });
   res.json(package);
-});
+};
 
-Router.get("/:id", async (req, res) => {
+exports.getPackageById = async (req, res) => {
   const package = await Packages.findById(req.params.id);
   if (!package) return res.status(400).json({ error: "Bad request" });
   res.json(package);
-});
+};
 
-Router.post("/", async (req, res) => {
+exports.updatePackage = async (req, res) => {
   const { error } = validatePackage(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -35,9 +33,9 @@ Router.post("/", async (req, res) => {
   });
   const result = await package.save();
   res.status(200).send(result);
-});
+};
 
-Router.get("/ticket/:id", async (req, res) => {
+exports.getPackageTicket = async (req, res) => {
   const { orderid, paymentid } = req.query;
 
   const pkg = await Packages.findById(req.params.id);
@@ -83,9 +81,9 @@ Router.get("/ticket/:id", async (req, res) => {
   }
 
   doc.end();
-});
+};
 
-Router.delete("/:id", async (req, res) => {
+exports.deletePackage = async (req, res) => {
   try {
     const package = await Packages.findByIdAndDelete(req.params.id);
     if (!package) return res.status(404).json({ error: "Package not found" });
@@ -93,6 +91,4 @@ Router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-module.exports = Router;
+};

@@ -10,7 +10,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/history/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/history/${id}`)
       .then((response) => {
         setOrder(response.data.orders);
       })

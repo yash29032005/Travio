@@ -39,7 +39,7 @@ function ShowPackage() {
   const [packages, setPackage] = useState([]);
   const handleSubmit = useCallback(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/packages`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/packages`, {
         params: { destination },
       })
       .then((response) => {

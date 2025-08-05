@@ -1,9 +1,7 @@
-const express = require("express");
-const Router = express.Router();
-const { User, ValidateR } = require("../models/user");
+const { User, ValidateR } = require("../model/user.model");
 const bcrypt = require("bcrypt");
 
-Router.post("/", async (req, res) => {
+exports.registerUser = async (req, res) => {
   const { error } = ValidateR(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -21,6 +19,4 @@ Router.post("/", async (req, res) => {
 
   await user.save();
   res.status(200).json({ message: "User is registered" });
-});
-
-module.exports = Router;
+};

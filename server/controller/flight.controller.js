@@ -1,9 +1,7 @@
-const express = require("express");
-const Router = express.Router();
-const { Flights, validateFlight } = require("../models/flight");
+const { Flights, validateFlight } = require("../model/flight.model");
 const PDFDocument = require("pdfkit");
 
-Router.get("/", async (req, res) => {
+exports.getFlights = async (req, res) => {
   const { from, to } = req.query;
 
   const flight = await Flights.find({
@@ -11,15 +9,15 @@ Router.get("/", async (req, res) => {
     ...(to && { to: { $regex: `^${to}`, $options: "i" } }),
   });
   res.json(flight);
-});
+};
 
-Router.get("/:id", async (req, res) => {
+exports.getFlightById = async (req, res) => {
   const flight = await Flights.findById(req.params.id);
   if (!flight) return res.status(400).json({ error: "Bad request" });
   res.json(flight);
-});
+};
 
-Router.post("/", async (req, res) => {
+exports.updateFlight = async (req, res) => {
   const { error } = validateFlight(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -39,9 +37,9 @@ Router.post("/", async (req, res) => {
   });
   const result = await flight.save();
   res.status(200).send(result);
-});
+};
 
-Router.get("/ticket/:id", async (req, res) => {
+exports.getFlightTicket = async (req, res) => {
   const { orderid } = req.query;
   const { paymentid } = req.query;
   const flight = await Flights.findById(req.params.id);
@@ -72,9 +70,9 @@ Router.get("/ticket/:id", async (req, res) => {
   doc.text(`Price: ${flight.price}/-`);
 
   doc.end();
-});
+};
 
-Router.delete("/:id", async (req, res) => {
+exports.deleteFlight = async (req, res) => {
   try {
     const flight = await Flights.findByIdAndDelete(req.params.id);
     if (!flight) return res.status(404).json({ error: "Flight not found" });
@@ -82,6 +80,4 @@ Router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-module.exports = Router;
+};

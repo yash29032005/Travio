@@ -19,7 +19,7 @@ function Modalfortrain({ show, onHide, handleSubmit }) {
     e.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/trains`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/trains`, {
         departureTime,
         arivalTime,
         departureStation,

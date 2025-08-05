@@ -22,7 +22,7 @@ function TrainThirdpage() {
   const [userid, setUserid] = useState("");
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/trains/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/trains/${id}`)
       .then((response) => {
         setTrain(response.data);
       });

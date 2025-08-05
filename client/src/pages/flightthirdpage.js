@@ -23,7 +23,7 @@ function FlightThirdpage() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/flights/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/flights/${id}`)
       .then((response) => {
         setFlight(response.data);
       });

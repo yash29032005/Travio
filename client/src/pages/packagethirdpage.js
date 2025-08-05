@@ -23,7 +23,7 @@ function PackageThirdpage() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/packages/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/packages/${id}`)
       .then((response) => {
         setPackage(response.data);
       });

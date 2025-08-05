@@ -14,7 +14,7 @@ function Login({ setUser, show, onHide, openRegister, onLoginSuccess }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
+      .post(`${process.env.REACT_APP_API_URL}/api/login`, { email, password })
       .then((res) => {
         const token = res.headers["x-auth-token"];
         if (token) {

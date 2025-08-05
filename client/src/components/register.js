@@ -18,7 +18,7 @@ function Register({ show, onHide, openLogin }) {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/register`,
+        `${process.env.REACT_APP_API_URL}/api/register`,
         {
           name,
           email,

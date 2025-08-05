@@ -18,7 +18,7 @@ function Modalforhotel({ show, onHide, handleSubmit }) {
     e.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/hotels`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/hotels`, {
         destination,
         location,
         room,

@@ -8,7 +8,7 @@ function Section3() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/packages`)
+      .get(`${process.env.REACT_APP_API_URL}/api/packages`)
       .then((res) => {
         setPackages(res.data);
         setLoading(false);

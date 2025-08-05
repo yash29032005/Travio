@@ -1,9 +1,7 @@
-const express = require("express");
-const Router = express.Router();
-const { Hotels, validateHotel } = require("../models/hotel");
+const { Hotels, validateHotel } = require("../model/hotel.model");
 const PDFDocument = require("pdfkit");
 
-Router.get("/", async (req, res) => {
+exports.getHotels = async (req, res) => {
   const { destination } = req.query;
 
   const hotel = await Hotels.find({
@@ -12,15 +10,15 @@ Router.get("/", async (req, res) => {
     }),
   });
   res.json(hotel);
-});
+};
 
-Router.get("/:id", async (req, res) => {
+exports.getHotelById = async (req, res) => {
   const hotel = await Hotels.findById(req.params.id);
   if (!hotel) return res.status(400).json({ error: "Bad request" });
   res.json(hotel);
-});
+};
 
-Router.post("/", async (req, res) => {
+exports.updateHotel = async (req, res) => {
   const { error } = validateHotel(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -37,9 +35,9 @@ Router.post("/", async (req, res) => {
   });
   const result = await hotel.save();
   res.status(200).send(result);
-});
+};
 
-Router.get("/ticket/:id", async (req, res) => {
+exports.getHotelTicket = async (req, res) => {
   const { orderid } = req.query;
   const { paymentid } = req.query;
   const hotel = await Hotels.findById(req.params.id);
@@ -67,9 +65,9 @@ Router.get("/ticket/:id", async (req, res) => {
   doc.text(`Price: ${hotel.price}/-`);
 
   doc.end();
-});
+};
 
-Router.delete("/:id", async (req, res) => {
+exports.deleteHotel = async (req, res) => {
   try {
     const hotel = await Hotels.findByIdAndDelete(req.params.id);
     if (!hotel) return res.status(404).json({ error: "Hotel not found" });
@@ -77,6 +75,4 @@ Router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-module.exports = Router;
+};

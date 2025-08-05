@@ -1,8 +1,6 @@
-const express = require("express");
-const Router = express.Router();
-const { Orders } = require("../models/order");
+const { Orders } = require("../model/order.model");
 
-Router.get("/:id", async (req, res) => {
+exports.getHistory = async (req, res) => {
   const { id } = req.params;
 
   if (!id) {
@@ -20,6 +18,4 @@ Router.get("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
   }
-});
-
-module.exports = Router;
+};

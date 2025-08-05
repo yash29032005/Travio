@@ -19,7 +19,7 @@ function Modalforpackage({ show, onHide, handleSubmit }) {
     e.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/packages`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/packages`, {
         destination,
         description,
         duration,

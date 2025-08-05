@@ -37,7 +37,7 @@ function ShowFlight() {
   const [flight, setFlight] = useState([]);
   const handleSubmit = useCallback(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/flights`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/flights`, {
         params: { from, to },
       })
       .then((response) => {

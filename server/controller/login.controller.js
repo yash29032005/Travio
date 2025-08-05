@@ -1,10 +1,8 @@
-const express = require("express");
-const Router = express.Router();
-const { User, ValidateL } = require("../models/user");
+const { User, ValidateL } = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-Router.post("/", async (req, res) => {
+exports.loginUser = async (req, res) => {
   const { error } = ValidateL(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -23,6 +21,4 @@ Router.post("/", async (req, res) => {
     .status(200)
     .header("x-auth-token", token)
     .json({ message: "Login successful" });
-});
-
-module.exports = Router;
+};

@@ -39,7 +39,7 @@ function ShowHotel() {
   const [hotel, setHotel] = useState([]);
   const handleSubmit = useCallback(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/hotels`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/hotels`, {
         params: { destination },
       })
       .then((response) => {

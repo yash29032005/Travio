@@ -1,9 +1,7 @@
-const express = require("express");
-const Router = express.Router();
-const { Trains, validateTrain } = require("../models/train");
+const { Trains, validateTrain } = require("../model/train.model");
 const PDFDocument = require("pdfkit");
 
-Router.get("/", async (req, res) => {
+exports.getTrains = async (req, res) => {
   const { from, to } = req.query;
 
   const train = await Trains.find({
@@ -11,15 +9,15 @@ Router.get("/", async (req, res) => {
     ...(to && { to: { $regex: `^${to}`, $options: "i" } }),
   });
   res.json(train);
-});
+};
 
-Router.get("/:id", async (req, res) => {
+exports.getTrainById = async (req, res) => {
   const train = await Trains.findById(req.params.id);
   if (!train) return res.status(400).json({ error: "Bad request" });
   res.json(train);
-});
+};
 
-Router.post("/", async (req, res) => {
+exports.updateTrain = async (req, res) => {
   const { error } = validateTrain(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -37,9 +35,9 @@ Router.post("/", async (req, res) => {
   });
   const result = await train.save();
   res.status(200).send(result);
-});
+};
 
-Router.get("/ticket/:id", async (req, res) => {
+exports.getTrainTicket = async (req, res) => {
   const { orderid } = req.query;
   const { paymentid } = req.query;
   const train = await Trains.findById(req.params.id);
@@ -68,9 +66,9 @@ Router.get("/ticket/:id", async (req, res) => {
   doc.text(`Price: ${train.price}/-`);
 
   doc.end();
-});
+};
 
-Router.delete("/:id", async (req, res) => {
+exports.deleteTrain = async (req, res) => {
   try {
     const train = await Trains.findByIdAndDelete(req.params.id);
     if (!train) return res.status(404).json({ error: "Train not found" });
@@ -78,6 +76,4 @@ Router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-module.exports = Router;
+};

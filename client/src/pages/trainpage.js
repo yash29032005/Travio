@@ -37,7 +37,7 @@ function ShowTrain() {
   const [train, setTrain] = useState([]);
   const handleSubmit = useCallback(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/trains`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/trains`, {
         params: { from, to },
       })
       .then((response) => {
