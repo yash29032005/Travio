@@ -20,56 +20,52 @@ function Section3() {
   }, []);
 
   return (
-    <div id="section3" style={{ width: "100vw" }} className="p-5">
-      <div
-        className="d-flex align-items-center justify-content-center fw-bold mb-3"
-        style={{
-          height: "20%",
-          width: "100%",
-          fontFamily: "serif",
-          fontSize: "clamp(1rem,5vh,2rem)",
-        }}
-      >
-        Top Destination
+    <div id="section3" className="container py-5">
+      {/* Heading */}
+      <div className="text-center mb-5">
+        <h2 className="fw-bold" style={{ fontFamily: "serif" }}>
+          Top Destinations
+        </h2>
+        <p className="text-muted">Discover amazing places to visit</p>
       </div>
-      <div
-        className="d-flex flex-column flex-sm-row align-items-center justify-content-around gap-5 pt-0"
-        style={{ height: "80%", width: "100%" }}
-      >
-        {loading ? (
-          <div className="text-center">Loading...</div>
-        ) : (
-          packages.slice(0, 3).map((pkg) => (
-            <div
-              className="rounded-4 p-4"
-              key={pkg._id}
-              style={{
-                height: "100%",
-                width: "100%",
-                background: "var(--secondary-color)",
-              }}
-            >
-              <img
-                src={pkg.image}
-                className="rounded-4 mb-2"
-                style={{
-                  height: "60%",
-                  width: "100%",
-                  objectFit: "cover",
-                }}
-                alt="packageimage"
-              />
-              <p className="fw-bold m-0">{pkg.destination}</p>
-              <p>{pkg.description}</p>
-              <Link to={`/packages/${pkg._id}`}>
-                <button className="btn btn-outline-primary w-100">
-                  View Packages
-                </button>
-              </Link>
+
+      {/* Loading */}
+      {loading ? (
+        <div className="text-center">Loading...</div>
+      ) : (
+        <div className="row g-4">
+          {packages.slice(0, 3).map((pkg) => (
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4" key={pkg._id}>
+              <div
+                className="card h-100 border-0 shadow-sm rounded-4"
+                style={{ background: "var(--secondary-color)" }}
+              >
+                <img
+                  src={pkg.image}
+                  alt={pkg.destination}
+                  className="card-img-top rounded-top-4"
+                  style={{
+                    height: "200px",
+                    objectFit: "cover",
+                    width: "100%",
+                  }}
+                />
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title fw-bold fs-5">{pkg.destination}</h5>
+                  <p className="card-text text-muted small flex-grow-1">
+                    {pkg.description}
+                  </p>
+                  <Link to={`/packages/${pkg._id}`} className="mt-3">
+                    <button className="btn btn-outline-primary w-100">
+                      View Package
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -15,6 +15,7 @@ import History from "./pages/history";
 import { useState } from "react";
 import UserContext from "./context/UserContext";
 import { jwtDecode } from "jwt-decode";
+import ChatBot from "./components/chatbot";
 
 function App() {
   let decodedToken = {};
@@ -45,6 +46,7 @@ function App() {
             <Route path="/checkout" element={<Checkout />}></Route>
             <Route path="/history/:id" element={<History />}></Route>
           </Routes>
+          <ChatBot />
         </BrowserRouter>
       </UserContext.Provider>
       <ToastContainer />

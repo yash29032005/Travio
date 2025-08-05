@@ -3,12 +3,92 @@
   --secondary-color: rgb(241, 238, 238);
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
 #section2 {
   height: "100vh";
 }
 
 #section3 {
   height: "100vh";
+}
+
+.card:hover {
+  transform: translateY(-25px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  color: black;
+  transition: color 0.3s ease;
+  background-color: transparent;
+  z-index: 1;
+  border: 1px solid black;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0%;
+  width: 100%;
+  background-color: black;
+  z-index: -1;
+  transition: height 0.5s ease;
+}
+
+.feature-card:hover::before {
+  height: 100%;
+}
+
+.feature-card:hover {
+  color: white;
+}
+
+.feature-card i {
+  transition: color 0.3s;
+}
+
+.feature-card:hover i {
+  color: gold;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce {
+  animation: bounce 1s infinite;
 }
 
 @media (max-width: 576px) {
