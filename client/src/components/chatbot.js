@@ -1,74 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function ChatBot() {
+  const bottomRef = useRef(null);
+
   const [messages, setMessages] = useState([
     {
       from: "bot",
-      text: "👋 Hi! I can help you find Flights, Trains, or Packages.",
+      text: "👋 Hi! I can help you with anything related to travelling",
     },
   ]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
   const [input, setInput] = useState("");
-  const [isOpen, setIsOpen] = useState(false); // chatbot visibility
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
-    const userMessage = input.trim();
 
+    const userMessage = input.trim();
     setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
     setInput("");
+    setLoading(true);
 
-    setTimeout(() => {
-      let response = [];
+    try {
+      const res = await axios.post("http://localhost:9000/api/prompt", {
+        userPrompt: userMessage,
+      });
 
-      const msg = userMessage.toLowerCase();
+      const reply = res.data.result;
 
-      if (msg.includes("flight")) {
-        response = [
-          { from: "bot", text: "✈️ Here are some flights you might like:" },
-          {
-            from: "bot",
-            type: "link",
-            text: "Explore Flights",
-            route: "/flights",
-          },
-        ];
-      } else if (msg.includes("train")) {
-        response = [
-          { from: "bot", text: "🚆 Check out our train options:" },
-          {
-            from: "bot",
-            type: "link",
-            text: "Explore Trains",
-            route: "/trains",
-          },
-        ];
-      } else if (msg.includes("package")) {
-        response = [
-          { from: "bot", text: "🏝️ Try one of these amazing packages:" },
-          {
-            from: "bot",
-            type: "link",
-            text: "View Packages",
-            route: "/packages",
-          },
-        ];
-      } else {
-        response = [
-          {
-            from: "bot",
-            text: "🤔 Sorry, I didn't get that. Try typing 'flight', 'train', or 'package'.",
-          },
-        ];
+      // Optional: Check for keywords and add route links
+      const lower = userMessage.toLowerCase();
+      const dynamicLinks = [];
+
+      if (lower.includes("flight")) {
+        dynamicLinks.push({
+          from: "bot",
+          type: "link",
+          text: "✈️ Explore Flights",
+          route: "/flights",
+        });
+      } else if (lower.includes("train")) {
+        dynamicLinks.push({
+          from: "bot",
+          type: "link",
+          text: "🚆 Explore Trains",
+          route: "/trains",
+        });
+      } else if (lower.includes("package")) {
+        dynamicLinks.push({
+          from: "bot",
+          type: "link",
+          text: "🏖️ View Packages",
+          route: "/packages",
+        });
       }
 
-      setMessages((prev) => [...prev, ...response]);
-    }, 700); // slight delay for realistic effect
+      setMessages((prev) => [
+        ...prev,
+        { from: "bot", text: reply },
+        ...dynamicLinks,
+      ]);
+    } catch (error) {
+      console.error(error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          from: "bot",
+          text: "❌ Sorry, something went wrong. Please try again.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      {/* Floating Button to Toggle */}
       {!isOpen && (
         <button
           className="btn btn-primary rounded-circle bounce"
@@ -80,6 +93,7 @@ function ChatBot() {
             height: 60,
             zIndex: 9998,
             fontSize: "1.5rem",
+            animation: "bounce 2s infinite",
           }}
           onClick={() => setIsOpen(true)}
         >
@@ -87,7 +101,6 @@ function ChatBot() {
         </button>
       )}
 
-      {/* Chatbot Window */}
       {isOpen && (
         <div
           className="chatbot shadow rounded-3"
@@ -104,7 +117,7 @@ function ChatBot() {
             border: "1px solid #ccc",
           }}
         >
-          {/* Header with Close */}
+          {/* Header */}
           <div
             className="chatbot-header bg-primary text-white py-2 px-3 d-flex justify-content-between align-items-center rounded-top"
             style={{ fontWeight: "bold", fontSize: "1rem" }}
@@ -123,10 +136,10 @@ function ChatBot() {
             </button>
           </div>
 
-          {/* Chat Area */}
+          {/* Chat Window */}
           <div
             className="chat-window flex-grow-1 px-3 py-2"
-            style={{ overflowY: "auto", fontSize: "0.9rem" }}
+            style={{ overflowY: "auto", width: "100%", fontSize: "0.9rem" }}
           >
             {messages.map((msg, index) => (
               <div
@@ -157,6 +170,10 @@ function ChatBot() {
                 )}
               </div>
             ))}
+            {loading && (
+              <div className="text-muted small">Bot is typing...</div>
+            )}
+            <div ref={bottomRef} />
           </div>
 
           {/* Input */}
@@ -167,10 +184,12 @@ function ChatBot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
+              disabled={loading}
             />
             <button
               className="btn btn-sm btn-primary ms-2"
               onClick={handleSend}
+              disabled={loading}
             >
               Send
             </button>

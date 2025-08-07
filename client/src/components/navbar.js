@@ -44,7 +44,10 @@ function Navbar({ links }) {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg">
+      <nav
+        className="navbar navbar-expand-lg"
+        style={{ background: "var(--primary-color)" }}
+      >
         <div className="container-fluid">
           <Link className="navbar-brand fw-bold fs-3" to="/">
             Travio
