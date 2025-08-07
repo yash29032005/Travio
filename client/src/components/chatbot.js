@@ -28,9 +28,12 @@ function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:9000/api/prompt", {
-        userPrompt: userMessage,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/prompt`,
+        {
+          userPrompt: userMessage,
+        }
+      );
 
       const reply = res.data.result;
 
