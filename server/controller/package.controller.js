@@ -39,7 +39,7 @@ exports.getPackageTicket = async (req, res) => {
   const { orderid, paymentid } = req.query;
 
   const pkg = await Packages.findById(req.params.id);
-  if (!pkg) return res.status(400).json({ error: "Bad request" });
+  if (!pkg) return res.status(404).json({ error: "Not found" });
 
   const doc = new PDFDocument();
   res.setHeader("Content-Type", "application/pdf");

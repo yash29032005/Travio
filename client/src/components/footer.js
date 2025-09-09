@@ -13,7 +13,7 @@ function Footer() {
         }}
       >
         <div className="p-5">
-          <p className="fs-2 ">Ultimate Trip Planner</p>
+          <p className="fs-2 ">Travio</p>
           <p className="mb-0">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui, vel?
             <br />
@@ -22,8 +22,7 @@ function Footer() {
             commodi?
           </p>
           <small className="fs-7" style={{ color: "grey" }}>
-            &copy; {new Date().getFullYear()} Your Company Name. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Travio. All rights reserved.
           </small>
         </div>
         <div className="d-flex gap-5">

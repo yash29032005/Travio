@@ -21,33 +21,59 @@ function Section4() {
   ];
 
   return (
-    <div id="Section5" className="py-5">
+    <div id="section4" className="py-5 bg-light">
       <div className="container text-center">
-        <h2 className="fw-bold mb-5" style={{ fontFamily: "serif" }}>
-          Why Choose Us
+        {/* Heading */}
+        <h2
+          className="fw-bold mb-3 display-6"
+          style={{ fontFamily: "Georgia, serif" }}
+        >
+          🌍 Why Choose Us
         </h2>
+        <p className="text-muted mb-5 fs-5">
+          We make your travel planning simple, safe, and affordable
+        </p>
+        <div
+          className="mx-auto mb-5"
+          style={{
+            width: "90px",
+            height: "4px",
+            background: "var(--primary-color)",
+            borderRadius: "2px",
+          }}
+        ></div>
 
+        {/* Features Grid */}
         <div className="row g-4">
           {features.map((feature, index) => (
             <div className="col-12 col-sm-6 col-lg-4" key={index}>
               <div
-                className="feature-card text-center p-4 h-100 rounded-top-5 shadow-sm bg-white"
+                className="feature-card text-center p-4 h-100 rounded-4 shadow-sm bg-white"
                 style={{
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-5px)";
+                  e.currentTarget.style.transform = "translateY(-8px)";
                   e.currentTarget.style.boxShadow =
-                    "0 10px 20px rgba(0,0,0,0.1)";
+                    "0 12px 25px rgba(0,0,0,0.15)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
                 }}
               >
-                <i className={`${feature.icon} fs-1 mb-3 text-primary`}></i>
-                <h5 className="fw-semibold">{feature.title}</h5>
-                <p className="text-grey">{feature.description}</p>
+                <div
+                  className="d-inline-flex justify-content-center align-items-center mb-3 rounded-circle"
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    background: "rgba(13,110,253,0.1)",
+                  }}
+                >
+                  <i className={`${feature.icon} fs-1 text-primary`}></i>
+                </div>
+                <h5 className="fw-bold mb-2">{feature.title}</h5>
+                <p style={{ color: "grey" }}>{feature.description}</p>
               </div>
             </div>
           ))}

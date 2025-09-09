@@ -5,7 +5,7 @@ function Section1() {
     <>
       <div
         id="Section1"
-        className="p-2"
+        className="p-4"
         style={{
           height: "calc(100vh - 70px)",
           width: "100vw",

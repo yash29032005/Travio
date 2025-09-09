@@ -9,7 +9,7 @@ function Checkout() {
 
   const downloadTicket = () => {
     window.open(
-      `${process.env.REACT_APP_API_URL}/${type}/ticket/${id}?orderid=${orderid}&paymentid=${paymentid}`,
+      `${process.env.REACT_APP_API_URL}/api/${type}/ticket/${id}?orderid=${orderid}&paymentid=${paymentid}`,
       "_blank"
     );
   };
@@ -19,7 +19,7 @@ function Checkout() {
       className="d-flex align-items-center justify-content-center flex-column"
       style={{ height: "100vh", width: "100vw" }}
     >
-      <h1>Order Successful</h1>
+      <h1>Payment Successful</h1>
       <h5>Order ID: {orderid}</h5>
       <h5>Payment ID: {paymentid}</h5>
       <button className="btn btn-primary mb-2" onClick={downloadTicket}>
