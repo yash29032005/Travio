@@ -18,14 +18,31 @@
 ## 🛠️ Tech Stack
 
 **Frontend:**
+
 - React.js
 - Tailwind CSS / Bootstrap (choose one)
 - Axios
 - React Router DOM
 
 **Backend:**
+
 - Node.js
 - Express.js
 - MongoDB + Mongoose
 - JWT Authentication
 - Razorpay Integration
+
+---
+
+## 🔑 Test Credentials
+
+For testing, use these login accounts:
+
+| User   | Email          | Password  |
+| ------ | -------------- | --------- |
+| User 1 | user@gmail.com | User@1234 |
+
+> **Note:** These are test accounts only.  
+> Do **not** use them in production.
+
+---
