@@ -46,3 +46,23 @@ For testing, use these login accounts:
 > Do **not** use them in production.
 
 ---
+
+## ▶️ Run the Project
+
+### Start Backend
+
+```bash
+cd server
+npm i
+npm run dev
+```
+
+### Start Frontend
+
+```bash
+cd client
+npm i
+npm start
+```
+
+---
