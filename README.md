@@ -38,9 +38,10 @@
 
 For testing, use these login accounts:
 
-| User   | Email          | Password  |
-| ------ | -------------- | --------- |
-| User 1 | user@gmail.com | User@1234 |
+| User    | Email            | Password   |
+| ------- | ---------------- | ---------- |
+| User 1  | user1@gmail.com  | user@1234  |
+| Admin 1 | admin1@gmail.com | admin@1234 |
 
 > **Note:** These are test accounts only.  
 > Do **not** use them in production.
